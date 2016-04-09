@@ -3,6 +3,6 @@ env.FORMULA_NAME = 'apache'
 
 fileLoader.fromGit(
     'salt_pipeline',
-    'https://github.com/ryancurrah/salt-pipeline',
+    'https://github.com/ryancurrah/salt-pipeline.git',
     'master'
 )
