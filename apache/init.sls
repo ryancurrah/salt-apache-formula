@@ -1,18 +1,18 @@
 apache_pkgs:
   pkg.installed:
     - pkgs:
-      - apache2
-      - libapache2-mod-wsgi
+      - httpd
+      - mod_wsgi
 
 apache_service:
   service.running:
-    - name: apache2
+    - name: httpd
     - enable: true
     - require:
       - pkg: apache_pkgs
 
 apache_disable_default_site:
   file.absent:
-    - name: /etc/apache2/sites-enabled/000-default.conf
+    - name: /etc/httpd/sites-enabled/000-default.conf
     - watch_in:
       - service: apache_service
