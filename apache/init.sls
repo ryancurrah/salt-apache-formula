@@ -1,18 +1,22 @@
+{% from "apache/map.jinja" import apache with context %}
+
 apache_pkgs:
   pkg.installed:
     - pkgs:
-      - httpd
-      - mod_wsgi
+      - {{ apache.pkg }}
+      {% for module in apache.modules %}
+      - {{ module }}
+      {% endfor %}
 
 apache_service:
   service.running:
-    - name: httpd
+    - name: {{ apache.service }}
     - enable: true
     - require:
       - pkg: apache_pkgs
 
 apache_disable_default_site:
   file.absent:
-    - name: /etc/httpd/sites-enabled/000-default.conf
+    - name: {{ apache.defaultsite }}
     - watch_in:
       - service: apache_service
